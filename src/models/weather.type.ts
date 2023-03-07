@@ -95,7 +95,7 @@ export interface Coord {
 export interface List {
   dt: number;
   main: MainClass;
-  weather: Weather[];
+  weather: WeatherElement[];
   clouds: Clouds;
   wind: Wind;
   visibility: number;
