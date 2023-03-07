@@ -1,6 +1,5 @@
-import { FormEventHandler, KeyboardEvent } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { useGetWeather } from "../Weather.query";
+import { useGetCities } from "../Weather.query";
 import { useWeatherStore } from "../Weather.store";
 
 type Inputs = {
@@ -9,8 +8,11 @@ type Inputs = {
 export const WeatherSearch = () => {
   const { setCity } = useWeatherStore();
   const { register, handleSubmit } = useForm<Inputs>();
+  useGetCities();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => setCity(data.city);
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    setCity(data.city);
+  };
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mb-12">
       <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
