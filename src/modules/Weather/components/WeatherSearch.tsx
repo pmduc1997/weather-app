@@ -1,6 +1,7 @@
-import { SubmitHandler, useForm } from "react-hook-form";
-import { useGetCities } from "../Weather.query";
-import { useWeatherStore } from "../Weather.store";
+import { SubmitHandler, useForm } from 'react-hook-form';
+
+import { useGetCities } from '../../../queries';
+import { useWeatherStore } from '../../../stores';
 
 type Inputs = {
   city: string;
@@ -10,16 +11,16 @@ export const WeatherSearch = () => {
   const { register, handleSubmit } = useForm<Inputs>();
   useGetCities();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = data => {
     setCity(data.city);
   };
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="mb-12">
-      <label className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
-        Search
-      </label>
-      <div className="relative">
-        <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="flex w-full md:max-w-max flex-col"
+    >
+      <div className="border justify-between rounded-md flex items-center px-4 py-2 w-full">
+        <div className="flex items-center gap-2">
           <svg
             className="w-5 h-5 text-gray-500 dark:text-gray-400"
             fill="none"
@@ -34,16 +35,17 @@ export const WeatherSearch = () => {
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
             ></path>
           </svg>
+          <input
+            className="px-4 py-2 outline-none "
+            type="search"
+            placeholder="Please enter a city"
+            {...register('city')}
+          />
         </div>
-        <input
-          type="search"
-          placeholder="Please enter a city"
-          className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-          {...register("city")}
-        />
+
         <button
           type="submit"
-          className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          className="text-white px-4 py-1 rounded-sm bg-blue-500 hover:bg-blue-600 "
         >
           Search
         </button>

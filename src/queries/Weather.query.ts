@@ -1,16 +1,13 @@
-import { useQueries, useQuery } from "@tanstack/react-query";
-import { toast } from "react-toastify";
-import {
-  getCities,
-  getForecast,
-  getWeather,
-} from "../../services/weather.service";
-import { useWeatherStore } from "./Weather.store";
+import { useQueries, useQuery } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+
+import { getCities, getForecast, getWeather } from '../services';
+import { useWeatherStore } from '../stores';
 
 const WEATHER_CACHE_KEY = {
-  cities: "cities",
-  weather: "weather",
-  forecast: "forecast",
+  cities: 'cities',
+  weather: 'weather',
+  forecast: 'forecast',
 };
 
 export const useGetCities = () => {
@@ -18,7 +15,7 @@ export const useGetCities = () => {
   return useQuery([WEATHER_CACHE_KEY.cities, city], () => getCities(city), {
     retry: 0,
     enabled: !!city,
-    onSuccess: (data) => {
+    onSuccess: data => {
       if (data.data.data.length === 0) return;
       setSelectedCity(data.data.data[0]);
     },
